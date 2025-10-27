@@ -9,22 +9,6 @@ def round_to_block(s, block_size=4):
     return int(m * block_size)
     
 # load personpower data and calculate total effective shift takers
-# if done with dictionary, easier to modify individual values
-# inst_dict = {}
-# with open('personpower_2026run_20251025.csv', mode='r', encoding='utf-8') as csv_file:
-#     line = csv_file.readline().strip()
-#     keys = line.split(',')
-#     line = csv_file.readline().strip()
-#     while len(line)>2:
-#         larr = line.split(',')
-#         idict = {}
-#         for i in range(len(keys)-1):
-#             idict[keys[i+1]] = float(larr[i+1])
-#         inst_dict[larr[0]] = idict
-#         inst_dict[larr[0]]['total'] = inst_dict[larr[0]]['leaders'] + inst_dict[larr[0]]['workers']
-#         inst_dict[larr[0]]['eff_N'] = inst_dict[larr[0]]['total'] * inst_dict[larr[0]]['effect_frac']
-#         line = csv_file.readline().strip()
-# print(inst_dict)
 
 # treat inst data as dataframe:
 personp_df = pd.read_csv('personpower_2026run_TEST.csv')
