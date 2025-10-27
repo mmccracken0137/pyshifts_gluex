@@ -26,11 +26,15 @@ end_date = dt.datetime(2026, 8, 1)
 print('run start date:', start_date)
 print('run end date:  ',end_date)
 n_days = (end_date - start_date).days + 1
+print('length of run: ', n_days, 'days')
+if n_days / 4 != int(n_days / 4):
+    print('ERROR: length of run not divisble by 4 days')
+    exit()
+
 n_leader = n_days * 3
 n_worker = n_days * 3
 n_RC = n_days
 n_RC_weeks = n_days / 8
-print('length of run: ', n_days, 'days')
 print('number of leader shifts: ', n_leader)
 print('number of worker shifts: ', n_worker)
 print('number of RC days:       ', n_RC)
