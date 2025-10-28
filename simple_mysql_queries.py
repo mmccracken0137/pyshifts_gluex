@@ -68,7 +68,7 @@ worker_alloc_df = personp_df.drop(columns=['n_leader_alloc', 'n_leader_avail']).
 #for i in range(n_days):
 while iter_date <= end_date:
     # print(i, iter_date.strftime('%Y-%m-%d'))
-    for type in ['owl', 'day', 'eve']:
+    for t in ['owl', 'day', 'eve']:
         # leaders first
         # remove insts with zero or fewer shifts remaining
         leader_alloc_df = leader_alloc_df[leader_alloc_df['n_leader_avail'] > 0]    
@@ -77,7 +77,7 @@ while iter_date <= end_date:
         leader_alloc_df['sample_weights'] = leader_alloc_df['n_leader_avail'] / total_avail
         leader_select_inst = leader_alloc_df.sample(1, weights='sample_weights')['inst'].values[0]
         # append the institution to the df for four shifts
-        [leader_assign[type].append(leader_select_inst) for _ in range(4)]
+        [leader_assign[t].append(leader_select_inst) for _ in range(4)]
         # decrement the allocation of the chosen institution
         leader_alloc_df.loc[leader_alloc_df['inst'] == leader_select_inst, 'n_leader_avail'] -= 4 
         
@@ -86,7 +86,7 @@ while iter_date <= end_date:
         total_avail = worker_alloc_df['n_worker_avail'].sum()
         worker_alloc_df['sample_weights'] = worker_alloc_df['n_worker_avail'] / total_avail
         worker_select_inst = worker_alloc_df.sample(1, weights='sample_weights')['inst'].values[0]
-        [worker_assign[type].append(worker_select_inst) for _ in range(4)]
+        [worker_assign[t].append(worker_select_inst) for _ in range(4)]
         worker_alloc_df.loc[worker_alloc_df['inst'] == worker_select_inst, 'n_worker_avail'] -= 4 
     
     # append dates in blocks of four
@@ -96,9 +96,9 @@ while iter_date <= end_date:
         iter_date = iter_date + dt.timedelta(days=1)
 
 # remove last block from worker and replace with two days assigned to JLAB
-for type in ['owl', 'day', 'eve']:
-    [worker_assign[type].pop() for _ in range(4)]
-    [worker_assign[type].append('JLAB') for _ in range(2)]
+for t in ['owl', 'day', 'eve']:
+    [worker_assign[t].pop() for _ in range(4)]
+    [worker_assign[t].append('JLAB') for _ in range(2)]
 
 print('Inspect these data frames to see whether any institutions have too many available remaining:')
 print(leader_alloc_df)
@@ -112,8 +112,21 @@ worker_df = pd.DataFrame({'shiftdate': date_list, 'shift_date': text_date_list,
                           'owl': worker_assign['owl'],
                           'day': worker_assign['day'],
                           'eve': worker_assign['eve']})
-print(leader_df)
-print(worker_df)
+# print(leader_df)
+# print(worker_df)
+
+# write tentative shift assignments to tsv files for the user to review
+leader_df.to_csv('temp_leader_' + dt.datetime.today().strftime('%Y-%m-%d') + '.tsv', sep='\t')
+leader_summary_df = pd.DataFrame()
+# for t in ['owl', 'day', 'eve']:
+#     pd.merge(leader_summary_df, leader_df[t].value_counts())
+# leader_summary_df.to_csv('temp_leader_summary_' + dt.datetime.today().strftime('%Y-%m-%d') + '.tsv', sep='\t')
+
+worker_df.to_csv('temp_worker_' + dt.datetime.today().strftime('%Y-%m-%d') + '.tsv', sep='\t')
+
+print()
+print('Tentative shift assignments have been written to file(s).')
+print('Please review these before writing to the db.')
 
 # TO DO
 # Write the mysql code to write these to the db
