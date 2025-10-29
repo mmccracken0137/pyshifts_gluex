@@ -121,9 +121,23 @@ leader_df.to_csv('temp_leader_' + dt.datetime.today().strftime('%Y-%m-%d') + '.t
 worker_df.to_csv('temp_worker_' + dt.datetime.today().strftime('%Y-%m-%d') + '.tsv', sep='\t')
 
 # now let's do some summarizing of the assignments. get a copy of earlier power df
+summary = {}
 for t in ['owl', 'day', 'eve']:
-    summary_df['leader_' + t] = len(leader_df[leader_df[t] == summary_df['inst']])
-    
+    summary['leader_' + t] = {}
+    summary['worker_' + t] = {}
+    for i in summary_df['inst']:
+        summary['leader_' + t][i] = len(leader_df[leader_df[t] == i])
+        summary['worker_' + t][i] = len(worker_df[worker_df[t] == i])
+    summary_df['leader_' + t] = summary_df['inst'].map(summary['leader_' + t])
+    summary_df['worker_' + t] = summary_df['inst'].map(summary['worker_' + t])
+
+summary_df['total_leader'] = summary_df['leader_owl'] + summary_df['leader_day'] + summary_df['leader_eve']
+summary_df['total_worker'] = summary_df['worker_owl'] + summary_df['worker_day'] + summary_df['worker_eve']
+
+summary_df = summary_df.drop(columns=['effect_frac', 'n_worker_avail', 'n_leader_avail'])
+summary_df.loc['totals'] = summary_df.sum(numeric_only=True)
+
+summary_df.to_csv('summary_' + dt.datetime.today().strftime('%Y-%m-%d') + '.tsv', sep='\t')    
 
 print()
 print('Tentative shift assignments have been written to file(s).')
