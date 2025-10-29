@@ -11,13 +11,13 @@ def round_to_block(s, block_size=4):
 # load personpower data and calculate total effective shift takers
 
 # treat inst data as dataframe:
-personp_df = pd.read_csv('personpower_2026run_TEST.csv')
-personp_df['total'] = personp_df['leaders'] + personp_df['workers']
+power_df = pd.read_csv('personpower_2026run_TEST.csv')
+power_df['total'] = power_df['leaders'] + power_df['workers']
 # line below applies JLAB's 0.5 weighting (and others if applicable)
-personp_df['eff_N'] = (personp_df['total'] * personp_df['effect_frac']).astype(int)
-calc_T = personp_df['eff_N'].sum()
+power_df['eff_N'] = (power_df['total'] * power_df['effect_frac']).astype(int)
+calc_T = power_df['eff_N'].sum()
 print('total effective shift takers:', calc_T)
-total_RC_vols = personp_df['rc'].sum()
+total_RC_vols = power_df['rc'].sum()
 print('total RC shifts volunteered:', total_RC_vols)
 
 # calculate features of shift schedule
@@ -46,14 +46,15 @@ if n_RC > total_RC_vols:
 # calculate number of leader and worker shifts for each institution
 #worker shifts:  W*N/T 
 #leader shifts:   (L+R)*N/T  minus the count of RC shifts that they provided 
-personp_df['n_worker_alloc'] = n_worker * personp_df['eff_N'] / calc_T
-personp_df['n_leader_alloc'] = (n_leader + n_RC) * personp_df['eff_N'] / calc_T - personp_df['rc']
-personp_df['n_worker_avail'] = personp_df['n_worker_alloc']
-personp_df['n_leader_avail'] = personp_df['n_leader_alloc']
+power_df['n_worker_alloc'] = n_worker * power_df['eff_N'] / calc_T
+power_df['n_leader_alloc'] = (n_leader + n_RC) * power_df['eff_N'] / calc_T - power_df['rc']
+power_df['n_worker_avail'] = power_df['n_worker_alloc']
+power_df['n_leader_avail'] = power_df['n_leader_alloc']
 
-print(personp_df)
-print('total calculated leader shifts:', personp_df['n_leader_alloc'].sum())
-print('total calculated worker shifts:', personp_df['n_worker_alloc'].sum())
+print(power_df)
+print('total calculated leader shifts:', power_df['n_leader_alloc'].sum())
+print('total calculated worker shifts:', power_df['n_worker_alloc'].sum())
+summary_df = power_df.copy()
 
 # now generate shifts schedule
 iter_date = start_date
@@ -62,8 +63,8 @@ leader_assign = {'owl': [], 'day': [], 'eve': []}
 worker_assign = {'owl': ['JLAB', 'JLAB'], 'day': ['JLAB', 'JLAB'], 'eve': ['JLAB', 'JLAB']}
 
 # create copies of person power df for leader and worker assignments
-leader_alloc_df = personp_df.drop(columns=['n_worker_alloc', 'n_worker_avail']).copy()
-worker_alloc_df = personp_df.drop(columns=['n_leader_alloc', 'n_leader_avail']).copy()
+leader_alloc_df = power_df.drop(columns=['n_worker_alloc', 'n_worker_avail']).copy()
+worker_alloc_df = power_df.drop(columns=['n_leader_alloc', 'n_leader_avail']).copy()
 
 #for i in range(n_days):
 while iter_date <= end_date:
@@ -117,12 +118,12 @@ worker_df = pd.DataFrame({'shiftdate': date_list, 'shift_date': text_date_list,
 
 # write tentative shift assignments to tsv files for the user to review
 leader_df.to_csv('temp_leader_' + dt.datetime.today().strftime('%Y-%m-%d') + '.tsv', sep='\t')
-leader_summary_df = pd.DataFrame()
-# for t in ['owl', 'day', 'eve']:
-#     pd.merge(leader_summary_df, leader_df[t].value_counts())
-# leader_summary_df.to_csv('temp_leader_summary_' + dt.datetime.today().strftime('%Y-%m-%d') + '.tsv', sep='\t')
-
 worker_df.to_csv('temp_worker_' + dt.datetime.today().strftime('%Y-%m-%d') + '.tsv', sep='\t')
+
+# now let's do some summarizing of the assignments. get a copy of earlier power df
+for t in ['owl', 'day', 'eve']:
+    summary_df['leader_' + t] = len(leader_df[leader_df[t] == summary_df['inst']])
+    
 
 print()
 print('Tentative shift assignments have been written to file(s).')
