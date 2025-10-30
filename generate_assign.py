@@ -1,7 +1,5 @@
 import datetime as dt
-import mysql.connector
 import pandas as pd
-import csv
 from rich import print
 
 def round_to_block(s, block_size=4):
@@ -22,7 +20,8 @@ print('total RC shifts volunteered:', total_RC_vols)
 
 # calculate features of shift schedule
 start_date = dt.datetime(2026, 2, 23)
-end_date = dt.datetime(2026, 8, 1)
+# end_date = dt.datetime(2026, 8, 1)
+end_date = dt.datetime(2026, 2, 26)
 print('run start date:', start_date)
 print('run end date:  ',end_date)
 n_days = (end_date - start_date).days + 1
