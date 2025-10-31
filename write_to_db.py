@@ -6,6 +6,7 @@ import csv
 from rich import print
 from rich.progress import track
 from getpass import getpass
+from time import sleep
 
 today_str = dt.datetime.today().strftime('%Y-%m-%d')
 expert_df, novice_df = '', ''
@@ -54,18 +55,21 @@ for i, a_row in track(acc_sched_df.iterrows()):
     vals = (a_row['acc_date'], a_row['exp'], a_row['energy'], a_row['acc_day'], a_row['shiftdate'])
     # print(scmd % vals)
     shifts_cursor.execute(scmd, vals)
+    sleep(0.1)
 
-for i, e_row in expert_df.iterrows():
+for i, e_row in track(expert_df.iterrows()):
     scmd = "INSERT INTO expert (shift_date, owl, day, eve, shiftdate) VALUES (%s, %s, %s, %s, %s)"
     vals = (e_row['shift_date'], e_row['owl'], e_row['day'], e_row['eve'], e_row['shiftdate'])
-    print(scmd % vals)
+    # print(scmd % vals)
     shifts_cursor.execute(scmd, vals)
+    sleep(0.1)
 
-for i, n_row in novice_df.iterrows():
+for i, n_row in track(novice_df.iterrows()):
     scmd = "INSERT INTO novice (shift_date, owl, day, eve, shiftdate) VALUES (%s, %s, %s, %s, %s)"
     vals = (n_row['shift_date'], n_row['owl'], n_row['day'], n_row['eve'], n_row['shiftdate'])
-    print(scmd % vals)
+    # print(scmd % vals)
     shifts_cursor.execute(scmd, vals)
+    sleep(0.1)
 
 print()
 print('The assignments above have been inserted into the db.')

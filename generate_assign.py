@@ -20,8 +20,8 @@ print('total RC shifts volunteered:', total_RC_vols)
 
 # set start/end of run
 start_date = dt.datetime(2026, 2, 23)
-end_date = dt.datetime(2026, 8, 1)
-# end_date = dt.datetime(2026, 2, 26)
+# end_date = dt.datetime(2026, 8, 1)
+end_date = dt.datetime(2026, 2, 26)
 print('run start date: ', start_date)
 print('run end date:   ',end_date)
 
