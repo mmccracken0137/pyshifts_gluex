@@ -116,8 +116,8 @@ worker_df = pd.DataFrame({'shiftdate': date_list, 'shift_date': text_date_list,
 # print(worker_df)
 
 # write tentative shift assignments to tsv files for the user to review
-leader_df.to_csv('temp_leader_' + dt.datetime.today().strftime('%Y-%m-%d') + '.tsv', sep='\t')
-worker_df.to_csv('temp_worker_' + dt.datetime.today().strftime('%Y-%m-%d') + '.tsv', sep='\t')
+leader_df.to_csv('temp_leader_' + dt.datetime.today().strftime('%Y-%m-%d') + '.csv', index=False)
+worker_df.to_csv('temp_worker_' + dt.datetime.today().strftime('%Y-%m-%d') + '.csv', index=False)
 
 # now let's do some summarizing of the assignments. get a copy of earlier power df
 summary = {}
@@ -136,7 +136,7 @@ summary_df['total_worker'] = summary_df['worker_owl'] + summary_df['worker_day']
 summary_df = summary_df.drop(columns=['effect_frac', 'n_worker_avail', 'n_leader_avail'])
 summary_df.loc['totals'] = summary_df.sum(numeric_only=True)
 
-summary_df.to_csv('summary_' + dt.datetime.today().strftime('%Y-%m-%d') + '.tsv', sep='\t')    
+summary_df.to_csv('summary_' + dt.datetime.today().strftime('%Y-%m-%d') + '.csv')    
 
 print()
 print('Tentative shift assignments have been written to file(s).')
