@@ -1,4 +1,4 @@
-inst,leaders,workers,effect_frac,rc
+inst,experts,novices,effect_frac,rc
 ASU,1,0,1.0,0
 ATHENS,0,1,1.0,0
 BONN,1,0,1.0,0
