@@ -9,7 +9,7 @@ def round_to_block(s, block_size=4):
 # load personpower data and calculate total effective shift takers
 
 # treat inst data as dataframe:
-power_df = pd.read_csv('personpower_2026run_TEST.csv')
+power_df = pd.read_csv('personpower_2026run_20251209.csv')
 power_df['total'] = power_df['experts'] + power_df['novices']
 # line below applies JLAB's 0.5 weighting (and others if applicable)
 power_df['eff_N'] = (power_df['total'] * power_df['effect_frac']).astype(int)
@@ -19,9 +19,9 @@ total_RC_vols = power_df['rc'].sum()
 print('total RC shifts volunteered:', total_RC_vols)
 
 # set start/end of run
-start_date = dt.datetime(2026, 2, 23)
-# end_date = dt.datetime(2026, 8, 1)
-end_date = dt.datetime(2026, 2, 26)
+start_date = dt.datetime(2026, 3, 13)
+end_date = dt.datetime(2026, 7, 30)
+# end_date = dt.datetime(2026, 2, 26)
 print('run start date: ', start_date)
 print('run end date:   ',end_date)
 
@@ -161,7 +161,7 @@ summary_df['total_novice'] = summary_df['novice_owl'] + summary_df['novice_day']
 summary_df = summary_df.drop(columns=['effect_frac', 'n_novice_avail', 'n_expert_avail'])
 summary_df.loc['totals'] = summary_df.sum(numeric_only=True)
 
-summary_df.to_csv('summary_' + dt.datetime.today().strftime('%Y-%m-%d') + '.csv')    
+summary_df.to_csv('temp_summary_' + dt.datetime.today().strftime('%Y-%m-%d') + '.csv')    
 
 print()
 print('Tentative shift assignments have been written to file(s).')
