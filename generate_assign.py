@@ -20,7 +20,7 @@ print('total RC shifts volunteered:', total_RC_vols)
 
 # set start/end of run
 start_date = dt.datetime(2026, 3, 13)
-end_date = dt.datetime(2026, 7, 30)
+end_date = dt.datetime(2026, 8, 3)
 # end_date = dt.datetime(2026, 2, 26)
 print('run start date: ', start_date)
 print('run end date:   ',end_date)
@@ -50,14 +50,15 @@ if n_RC > total_RC_vols:
 # calculate number of expert and novice shifts for each institution
 #novice shifts:  W*N/T 
 #expert shifts:   (L+R)*N/T  minus the count of RC shifts that they provided 
-power_df['n_novice_alloc'] = n_novice * power_df['eff_N'] / calc_T
 power_df['n_expert_alloc'] = (n_expert + n_RC) * power_df['eff_N'] / calc_T - power_df['rc']
-power_df['n_novice_avail'] = power_df['n_novice_alloc']
 power_df['n_expert_avail'] = power_df['n_expert_alloc']
 
+power_df['n_novice_alloc'] = n_novice * power_df['eff_N'] / calc_T
+power_df['n_novice_avail'] = power_df['n_novice_alloc']
+
 print(power_df)
-print('total calculated expert shifts:', power_df['n_expert_alloc'].sum())
-print('total calculated novice shifts:', power_df['n_novice_alloc'].sum())
+print('total calculated allocated expert shifts:', power_df['n_expert_alloc'].sum())
+print('total calculated allocated novice shifts:', power_df['n_novice_alloc'].sum())
 summary_df = power_df.copy()
 
 # now generate shifts schedule
@@ -121,7 +122,10 @@ for t in ['owl', 'day', 'eve']:
     [novice_assign[t].append('JLAB') for _ in range(2)]
 
 print('Inspect these data frames to see whether any institutions have too many available remaining:')
+print('--- expert shift allocation dataframe ---')
 print(expert_alloc_df)
+
+print('--- novice shift allocation dataframe ---')
 print(novice_alloc_df)
 
 expert_df = pd.DataFrame({'shiftdate': date_list, 'shift_date': text_date_list, 
