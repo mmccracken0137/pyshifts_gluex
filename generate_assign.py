@@ -48,8 +48,14 @@ if n_RC > total_RC_vols:
     exit()
 
 # calculate number of expert and novice shifts for each institution
-#novice shifts:  W*N/T 
-#expert shifts:   (L+R)*N/T  minus the count of RC shifts that they provided 
+# W = total number of worker shifts
+# L = total number of leader shifts
+# R = total number of RC shifts (8 per RC week)
+# N = number of shift personnel from one institution, x 0.5 if it is JLab
+# T = sum of all N 
+
+# allocated novice shifts:  W*N/T 
+# allocated expert shifts:  (L+R)*N/T  minus the count of RC shifts that they provided 
 power_df['n_expert_alloc'] = (n_expert + n_RC) * power_df['eff_N'] / calc_T - power_df['rc']
 power_df['n_expert_avail'] = power_df['n_expert_alloc']
 
