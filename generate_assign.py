@@ -16,17 +16,18 @@ power_df['eff_N'] = (power_df['total'] * power_df['effect_frac']).astype(int)
 calc_T = power_df['eff_N'].sum()
 print('total effective shift takers:', calc_T)
 total_RC_vols = power_df['rc'].sum()
-print('total RC shifts volunteered:', total_RC_vols)
+print('total RC credits:', total_RC_vols)
 
 # set start/end of run
 start_date = dt.datetime(2026, 3, 13)
-end_date = dt.datetime(2026, 8, 3)
+end_date = dt.datetime(2026, 8, 19)
 # end_date = dt.datetime(2026, 2, 26)
 print('run start date: ', start_date)
 print('run end date:   ',end_date)
 
 # make a dictionary of start dates/experiments for the acc_sched table
-acc_sched_dates = {start_date.strftime('%Y-%m-%d'): 'TBD', '2026-05-01': 'TBD2'}
+acc_sched_dates = {start_date.strftime('%Y-%m-%d'): 'Low Energy',
+                   '2026-05-01': 'GlueX2/JEF'}
 
 # calculate features of shift schedule
 n_days = (end_date - start_date).days + 1
@@ -37,15 +38,30 @@ if n_days / 4 != int(n_days / 4):
     
 n_expert = n_days * 3
 n_novice = n_days * 3
-n_RC = n_days
-n_RC_weeks = n_days / 8
-print('number of expert shifts: ', n_expert)
-print('number of novice shifts: ', n_novice)
-print('number of RC days:       ', n_RC)
-print('number of RC weeks:      ', n_RC_weeks)
-if n_RC > total_RC_vols:
-    print('ERROR: not enough RCs!')
-    exit()
+n_shifts = n_days * 6
+print('number of shifts:         ', n_shifts)
+print('number of expert shifts:  ', n_expert)
+print('number of novice shifts:  ', n_novice)
+
+print()
+n_shifters = power_df['experts'].sum() + power_df['novices'].sum()
+print('total number of shifters: ', n_shifters)
+power_df['effective_shifters'] = power_df['experts'] * power_df['effect_frac']
+n_eff_shifters = power_df['effective_shifters'].sum()
+print('effective number of shifters: ', n_eff_shifters)
+print('average per-person shift load:', n_shifts / n_eff_shifters)
+
+n_RC_cred = power_df['rc'].sum()
+print('number of RC credits:', n_RC_cred)
+# n_RC_weeks = n_days / 8
+
+### Next calculate each inst's total shift allocation with RC credits, round (?), and split into e/n
+
+# print('number of RC days/credits:', n_RC)
+# print('number of RC weeks:      ', n_RC_weeks)
+# if n_RC > total_RC_vols:
+#     print('ERROR: not enough RCs!')
+#     exit()
 
 # calculate number of expert and novice shifts for each institution
 # W = total number of worker shifts
@@ -54,13 +70,27 @@ if n_RC > total_RC_vols:
 # N = number of shift personnel from one institution, x 0.5 if it is JLab
 # T = sum of all N 
 
-# allocated novice shifts:  W*N/T 
-# allocated expert shifts:  (L+R)*N/T  minus the count of RC shifts that they provided 
-power_df['n_expert_alloc'] = (n_expert + n_RC) * power_df['eff_N'] / calc_T - power_df['rc']
+# we'll allocate total shifts with RC credits, then split each institution's 
+# total into halves for expert and novice
+
+power_df['n_total_alloc'] = (n_shifts + n_RC_cred) * power_df['eff_N'] / calc_T - power_df['rc']
+print('total allocated shifts:', power_df['n_total_alloc'].sum())
+
+power_df['n_expert_alloc'] = power_df['n_total_alloc'] / 2.0
 power_df['n_expert_avail'] = power_df['n_expert_alloc']
 
-power_df['n_novice_alloc'] = n_novice * power_df['eff_N'] / calc_T
+power_df['n_novice_alloc'] = power_df['n_total_alloc'] / 2.0
 power_df['n_novice_avail'] = power_df['n_novice_alloc']
+
+# previous allocation scheme ca. Nov 2025
+# allocated novice shifts:  W*N/T 
+# allocated expert shifts:  (L+R)*N/T  minus the count of RC shifts that they provided 
+
+# power_df['n_expert_alloc'] = (n_expert + n_RC) * power_df['eff_N'] / calc_T - power_df['rc'] 
+# power_df['n_expert_avail'] = power_df['n_expert_alloc']
+
+# power_df['n_novice_alloc'] = n_novice * power_df['eff_N'] / calc_T
+# power_df['n_novice_avail'] = power_df['n_novice_alloc']
 
 print(power_df)
 print('total calculated allocated expert shifts:', power_df['n_expert_alloc'].sum())
@@ -85,9 +115,9 @@ while iter_date <= end_date:
         # experts first
         # remove insts with zero or fewer shifts remaining
         expert_alloc_df = expert_alloc_df[expert_alloc_df['n_expert_avail'] > 0]    
-        total_avail = expert_alloc_df['n_expert_avail'].sum()
         # calculate the sampling weights based on number of available shifts remaining
-        expert_alloc_df['sample_weights'] = expert_alloc_df['n_expert_avail'] / total_avail
+        expert_alloc_df['sample_weights'] = expert_alloc_df['n_expert_avail']**2
+        
         expert_select_inst = expert_alloc_df.sample(1, weights='sample_weights')['inst'].values[0]
         # append the institution to the df for four shifts
         [expert_assign[t].append(expert_select_inst) for _ in range(4)]
@@ -96,8 +126,7 @@ while iter_date <= end_date:
         
         # novices next... same steps as above
         novice_alloc_df = novice_alloc_df[novice_alloc_df['n_novice_avail'] > 0]    
-        total_avail = novice_alloc_df['n_novice_avail'].sum()
-        novice_alloc_df['sample_weights'] = novice_alloc_df['n_novice_avail'] / total_avail
+        novice_alloc_df['sample_weights'] = novice_alloc_df['n_novice_avail']**2
         novice_select_inst = novice_alloc_df.sample(1, weights='sample_weights')['inst'].values[0]
         [novice_assign[t].append(novice_select_inst) for _ in range(4)]
         novice_alloc_df.loc[novice_alloc_df['inst'] == novice_select_inst, 'n_novice_avail'] -= 4 
@@ -129,10 +158,10 @@ for t in ['owl', 'day', 'eve']:
 
 print('Inspect these data frames to see whether any institutions have too many available remaining:')
 print('--- expert shift allocation dataframe ---')
-print(expert_alloc_df)
+# print(expert_alloc_df)
 
 print('--- novice shift allocation dataframe ---')
-print(novice_alloc_df)
+# print(novice_alloc_df)
 
 expert_df = pd.DataFrame({'shiftdate': date_list, 'shift_date': text_date_list, 
                           'owl': expert_assign['owl'],
@@ -167,11 +196,16 @@ for t in ['owl', 'day', 'eve']:
 
 summary_df['total_expert'] = summary_df['expert_owl'] + summary_df['expert_day'] + summary_df['expert_eve']
 summary_df['total_novice'] = summary_df['novice_owl'] + summary_df['novice_day'] + summary_df['novice_eve']
+summary_df['total_shifts'] = summary_df['total_expert'] + summary_df['total_novice']
 
 summary_df = summary_df.drop(columns=['effect_frac', 'n_novice_avail', 'n_expert_avail'])
 summary_df.loc['totals'] = summary_df.sum(numeric_only=True)
+summary_df = summary_df.sort_values('total')
 
-summary_df.to_csv('temp_summary_' + dt.datetime.today().strftime('%Y-%m-%d') + '.csv')    
+summary_df.to_csv('temp_summary_' + dt.datetime.today().strftime('%Y-%m-%d') + '.csv')  
+
+print(summary_df[['inst','total','rc','eff_N','n_total_alloc','n_expert_alloc',
+                  'n_novice_alloc','total_expert','total_novice','total_shifts']])  
 
 print()
 print('Tentative shift assignments have been written to file(s).')
