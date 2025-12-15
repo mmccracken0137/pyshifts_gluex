@@ -18,15 +18,15 @@ shiftdate,acc_date,exp,acc_day,energy
 2026-03-29,29-Mar-2026,Low Energy,Sunday,TBD
 2026-03-30,30-Mar-2026,Low Energy,Monday,TBD
 2026-03-31,31-Mar-2026,Low Energy,Tuesday,TBD
-2026-04-01,1-Apr-2026,Low Energy,Wednesday,TBD
-2026-04-02,2-Apr-2026,Low Energy,Thursday,TBD
-2026-04-03,3-Apr-2026,Low Energy,Friday,TBD
-2026-04-04,4-Apr-2026,Low Energy,Saturday,TBD
-2026-04-05,5-Apr-2026,Low Energy,Sunday,TBD
-2026-04-06,6-Apr-2026,Low Energy,Monday,TBD
-2026-04-07,7-Apr-2026,Low Energy,Tuesday,TBD
-2026-04-08,8-Apr-2026,Low Energy,Wednesday,TBD
-2026-04-09,9-Apr-2026,Low Energy,Thursday,TBD
+2026-04-01,01-Apr-2026,Low Energy,Wednesday,TBD
+2026-04-02,02-Apr-2026,Low Energy,Thursday,TBD
+2026-04-03,03-Apr-2026,Low Energy,Friday,TBD
+2026-04-04,04-Apr-2026,Low Energy,Saturday,TBD
+2026-04-05,05-Apr-2026,Low Energy,Sunday,TBD
+2026-04-06,06-Apr-2026,Low Energy,Monday,TBD
+2026-04-07,07-Apr-2026,Low Energy,Tuesday,TBD
+2026-04-08,08-Apr-2026,Low Energy,Wednesday,TBD
+2026-04-09,09-Apr-2026,Low Energy,Thursday,TBD
 2026-04-10,10-Apr-2026,Low Energy,Friday,TBD
 2026-04-11,11-Apr-2026,Low Energy,Saturday,TBD
 2026-04-12,12-Apr-2026,Low Energy,Sunday,TBD
@@ -48,15 +48,15 @@ shiftdate,acc_date,exp,acc_day,energy
 2026-04-28,28-Apr-2026,Low Energy,Tuesday,TBD
 2026-04-29,29-Apr-2026,Low Energy,Wednesday,TBD
 2026-04-30,30-Apr-2026,Low Energy,Thursday,TBD
-2026-05-01,1-May-2026,GlueX2/JEF,Friday,TBD
-2026-05-02,2-May-2026,GlueX2/JEF,Saturday,TBD
-2026-05-03,3-May-2026,GlueX2/JEF,Sunday,TBD
-2026-05-04,4-May-2026,GlueX2/JEF,Monday,TBD
-2026-05-05,5-May-2026,GlueX2/JEF,Tuesday,TBD
-2026-05-06,6-May-2026,GlueX2/JEF,Wednesday,TBD
-2026-05-07,7-May-2026,GlueX2/JEF,Thursday,TBD
-2026-05-08,8-May-2026,GlueX2/JEF,Friday,TBD
-2026-05-09,9-May-2026,GlueX2/JEF,Saturday,TBD
+2026-05-01,01-May-2026,GlueX2/JEF,Friday,TBD
+2026-05-02,02-May-2026,GlueX2/JEF,Saturday,TBD
+2026-05-03,03-May-2026,GlueX2/JEF,Sunday,TBD
+2026-05-04,04-May-2026,GlueX2/JEF,Monday,TBD
+2026-05-05,05-May-2026,GlueX2/JEF,Tuesday,TBD
+2026-05-06,06-May-2026,GlueX2/JEF,Wednesday,TBD
+2026-05-07,07-May-2026,GlueX2/JEF,Thursday,TBD
+2026-05-08,08-May-2026,GlueX2/JEF,Friday,TBD
+2026-05-09,09-May-2026,GlueX2/JEF,Saturday,TBD
 2026-05-10,10-May-2026,GlueX2/JEF,Sunday,TBD
 2026-05-11,11-May-2026,GlueX2/JEF,Monday,TBD
 2026-05-12,12-May-2026,GlueX2/JEF,Tuesday,TBD
@@ -79,15 +79,15 @@ shiftdate,acc_date,exp,acc_day,energy
 2026-05-29,29-May-2026,GlueX2/JEF,Friday,TBD
 2026-05-30,30-May-2026,GlueX2/JEF,Saturday,TBD
 2026-05-31,31-May-2026,GlueX2/JEF,Sunday,TBD
-2026-06-01,1-Jun-2026,GlueX2/JEF,Monday,TBD
-2026-06-02,2-Jun-2026,GlueX2/JEF,Tuesday,TBD
-2026-06-03,3-Jun-2026,GlueX2/JEF,Wednesday,TBD
-2026-06-04,4-Jun-2026,GlueX2/JEF,Thursday,TBD
-2026-06-05,5-Jun-2026,GlueX2/JEF,Friday,TBD
-2026-06-06,6-Jun-2026,GlueX2/JEF,Saturday,TBD
-2026-06-07,7-Jun-2026,GlueX2/JEF,Sunday,TBD
-2026-06-08,8-Jun-2026,GlueX2/JEF,Monday,TBD
-2026-06-09,9-Jun-2026,GlueX2/JEF,Tuesday,TBD
+2026-06-01,01-Jun-2026,GlueX2/JEF,Monday,TBD
+2026-06-02,02-Jun-2026,GlueX2/JEF,Tuesday,TBD
+2026-06-03,03-Jun-2026,GlueX2/JEF,Wednesday,TBD
+2026-06-04,04-Jun-2026,GlueX2/JEF,Thursday,TBD
+2026-06-05,05-Jun-2026,GlueX2/JEF,Friday,TBD
+2026-06-06,06-Jun-2026,GlueX2/JEF,Saturday,TBD
+2026-06-07,07-Jun-2026,GlueX2/JEF,Sunday,TBD
+2026-06-08,08-Jun-2026,GlueX2/JEF,Monday,TBD
+2026-06-09,09-Jun-2026,GlueX2/JEF,Tuesday,TBD
 2026-06-10,10-Jun-2026,GlueX2/JEF,Wednesday,TBD
 2026-06-11,11-Jun-2026,GlueX2/JEF,Thursday,TBD
 2026-06-12,12-Jun-2026,GlueX2/JEF,Friday,TBD
@@ -109,15 +109,15 @@ shiftdate,acc_date,exp,acc_day,energy
 2026-06-28,28-Jun-2026,GlueX2/JEF,Sunday,TBD
 2026-06-29,29-Jun-2026,GlueX2/JEF,Monday,TBD
 2026-06-30,30-Jun-2026,GlueX2/JEF,Tuesday,TBD
-2026-07-01,1-Jul-2026,GlueX2/JEF,Wednesday,TBD
-2026-07-02,2-Jul-2026,GlueX2/JEF,Thursday,TBD
-2026-07-03,3-Jul-2026,GlueX2/JEF,Friday,TBD
-2026-07-04,4-Jul-2026,GlueX2/JEF,Saturday,TBD
-2026-07-05,5-Jul-2026,GlueX2/JEF,Sunday,TBD
-2026-07-06,6-Jul-2026,GlueX2/JEF,Monday,TBD
-2026-07-07,7-Jul-2026,GlueX2/JEF,Tuesday,TBD
-2026-07-08,8-Jul-2026,GlueX2/JEF,Wednesday,TBD
-2026-07-09,9-Jul-2026,GlueX2/JEF,Thursday,TBD
+2026-07-01,01-Jul-2026,GlueX2/JEF,Wednesday,TBD
+2026-07-02,02-Jul-2026,GlueX2/JEF,Thursday,TBD
+2026-07-03,03-Jul-2026,GlueX2/JEF,Friday,TBD
+2026-07-04,04-Jul-2026,GlueX2/JEF,Saturday,TBD
+2026-07-05,05-Jul-2026,GlueX2/JEF,Sunday,TBD
+2026-07-06,06-Jul-2026,GlueX2/JEF,Monday,TBD
+2026-07-07,07-Jul-2026,GlueX2/JEF,Tuesday,TBD
+2026-07-08,08-Jul-2026,GlueX2/JEF,Wednesday,TBD
+2026-07-09,09-Jul-2026,GlueX2/JEF,Thursday,TBD
 2026-07-10,10-Jul-2026,GlueX2/JEF,Friday,TBD
 2026-07-11,11-Jul-2026,GlueX2/JEF,Saturday,TBD
 2026-07-12,12-Jul-2026,GlueX2/JEF,Sunday,TBD
@@ -140,15 +140,15 @@ shiftdate,acc_date,exp,acc_day,energy
 2026-07-29,29-Jul-2026,GlueX2/JEF,Wednesday,TBD
 2026-07-30,30-Jul-2026,GlueX2/JEF,Thursday,TBD
 2026-07-31,31-Jul-2026,GlueX2/JEF,Friday,TBD
-2026-08-01,1-Aug-2026,GlueX2/JEF,Saturday,TBD
-2026-08-02,2-Aug-2026,GlueX2/JEF,Sunday,TBD
-2026-08-03,3-Aug-2026,GlueX2/JEF,Monday,TBD
-2026-08-04,4-Aug-2026,GlueX2/JEF,Tuesday,TBD
-2026-08-05,5-Aug-2026,GlueX2/JEF,Wednesday,TBD
-2026-08-06,6-Aug-2026,GlueX2/JEF,Thursday,TBD
-2026-08-07,7-Aug-2026,GlueX2/JEF,Friday,TBD
-2026-08-08,8-Aug-2026,GlueX2/JEF,Saturday,TBD
-2026-08-09,9-Aug-2026,GlueX2/JEF,Sunday,TBD
+2026-08-01,01-Aug-2026,GlueX2/JEF,Saturday,TBD
+2026-08-02,02-Aug-2026,GlueX2/JEF,Sunday,TBD
+2026-08-03,03-Aug-2026,GlueX2/JEF,Monday,TBD
+2026-08-04,04-Aug-2026,GlueX2/JEF,Tuesday,TBD
+2026-08-05,05-Aug-2026,GlueX2/JEF,Wednesday,TBD
+2026-08-06,06-Aug-2026,GlueX2/JEF,Thursday,TBD
+2026-08-07,07-Aug-2026,GlueX2/JEF,Friday,TBD
+2026-08-08,08-Aug-2026,GlueX2/JEF,Saturday,TBD
+2026-08-09,09-Aug-2026,GlueX2/JEF,Sunday,TBD
 2026-08-10,10-Aug-2026,GlueX2/JEF,Monday,TBD
 2026-08-11,11-Aug-2026,GlueX2/JEF,Tuesday,TBD
 2026-08-12,12-Aug-2026,GlueX2/JEF,Wednesday,TBD

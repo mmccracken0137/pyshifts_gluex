@@ -99,7 +99,7 @@ summary_df = power_df.copy()
 
 # now generate shifts schedule
 iter_date = start_date
-date_list, text_date_list = [], []
+date_list, text_date_list, acc_text_date_list = [], [], []
 expert_assign = {'owl': [], 'day': [], 'eve': []}
 novice_assign = {'owl': ['JLAB', 'JLAB'], 'day': ['JLAB', 'JLAB'], 'eve': ['JLAB', 'JLAB']}
 acc_sched = {'exp': [], 'energy': [], 'acc_day': []}
@@ -135,6 +135,7 @@ while iter_date <= end_date:
     for _ in range(4):
         date_list.append(iter_date.strftime('%Y-%m-%d'))
         text_date_list.append(iter_date.strftime('%-d-%b-%Y'))
+        acc_text_date_list.append(iter_date.strftime('%d-%b-%Y'))
 
         # add info to the acc_sched dictionary
         exp = ''
@@ -171,7 +172,7 @@ novice_df = pd.DataFrame({'shiftdate': date_list, 'shift_date': text_date_list,
                           'owl': novice_assign['owl'],
                           'day': novice_assign['day'],
                           'eve': novice_assign['eve']})
-acc_sched_df = pd.DataFrame({'shiftdate': date_list, 'acc_date': text_date_list, 
+acc_sched_df = pd.DataFrame({'shiftdate': date_list, 'acc_date': acc_text_date_list, 
                              'exp': acc_sched['exp'],
                              'acc_day': acc_sched['acc_day'],
                              'energy': acc_sched['energy']})
