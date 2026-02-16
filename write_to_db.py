@@ -9,6 +9,7 @@ from getpass import getpass
 from time import sleep
 
 today_str = dt.datetime.today().strftime('%Y-%m-%d')
+print(today_str)
 expert_df, novice_df = '', ''
 if os.path.exists('temp_expert_' + today_str + '.csv'):
     expert_df = pd.read_csv('temp_expert_' + today_str + '.csv')
