@@ -22,19 +22,19 @@ def date_from_shift(level, shift, date):
     s_date = shiftdate.replace(hour=0, minute=0, second=0)
     e_date = shiftdate.replace(hour=8, minute=0, second=0)
     if level == 'exp':
-        if shift = 'day': 
+        if shift == 'day': 
             s_date += dt.timedelta(hour=8)
             e_date += dt.timedelta(hour=8)
-        if shift = 'eve': 
+        if shift == 'eve': 
             s_date += dt.timedelta(hour=8)
             e_date += dt.timedelta(hour=8)
     elif level == 'nov':
         s_date += dt.timedelta(hour=4)
         e_date += dt.timedelta(hour=4)
-        if shift = 'day': 
+        if shift == 'day': 
             s_date += dt.timedelta(hour=8)
             e_date += dt.timedelta(hour=8)
-        if shift = 'eve': 
+        if shift == 'eve': 
             s_date += dt.timedelta(hour=8)
             e_date += dt.timedelta(hour=8)
     return s_date, e_date
